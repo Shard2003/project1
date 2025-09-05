@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Example 1 — Simple Landing Page</title>
+  <style>
+    :root{--accent:#06b6d4;--bg:#0f172a;--card:#0b1220}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071029 0%, #081226 100%);color:#e6f2ff}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
+    .card{background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);border-radius:14px;padding:2.2rem;max-width:900px;width:100%;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 .25rem;font-size:clamp(1.4rem,4vw,2.4rem)}
+    p.lead{margin:0 0 1.25rem;color:#c9e9f5}
+    .buttons{display:flex;gap:0.75rem}
+    .btn{padding:.6rem 1rem;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--accent);color:#042027}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dceffd}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1.25rem}
+    .feature{padding:.75rem;border-radius:8px;background:rgba(255,255,255,0.02)}
+    footer{margin-top:1.25rem;text-align:right;color:#9fbfd0;font-size:.85rem}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Launch faster with a clean HTML starter</h1>
+      <p class="lead">A minimal, responsive landing layout with clear call-to-action. Copy, edit, and ship.</p>
+      <div class="buttons">
+        <button class="btn btn-primary" onclick="alert('Primary action clicked')">Get started</button>
+        <button class="btn btn-ghost" onclick="alert('Secondary action')">Learn more</button>
+      </div>
+      <div class="features">
+        <div class="feature"><strong>Responsive</strong><div>Works on phones & desktops</div></div>
+        <div class="feature"><strong>Lightweight</strong><div>No frameworks required</div></div>
+        <div class="feature"><strong>Accessible</strong><div>Semantic markup</div></div>
+      </div>
+      <footer>&copy; <span id="year"></span> Your Company</footer>
+    </div>
+  </div>
+  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+</body>
+</html>
