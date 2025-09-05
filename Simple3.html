@@ -1,0 +1,64 @@
+<!-- Example 3: Photo Gallery with Lightbox -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Example 3 — Photo Gallery with Lightbox</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fafafa;color:#111}
+    .wrap{max-width:1100px;margin:2rem auto;padding:1rem}
+    h1{margin:0 0 1rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+    .thumb{position:relative;border-radius:8px;overflow:hidden;cursor:pointer}
+    .thumb img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .25s}
+    .thumb:hover img{transform:scale(1.05)}
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+    .lightbox.open{opacity:1;pointer-events:auto}
+    .lb-img{max-width:90%;max-height:80%;border-radius:8px;box-shadow:0 10px 40px rgba(2,6,23,0.6)}
+    .lb-close{position:fixed;top:20px;right:20px;font-size:1.4rem;color:white;background:transparent;border:0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Photo gallery</h1>
+    <p>Click any image to open the lightbox.</p>
+    <div class="grid" id="gallery"></div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+    <button class="lb-close" id="lbClose">✕</button>
+    <img src="" alt="Preview" class="lb-img" id="lbImg">
+  </div>
+
+  <script>
+    // Sample images
+    const images=[
+      'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=1200&q=80',
+      'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80',
+      'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?w=1200&q=80',
+      'https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1200&q=80',
+      'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80'
+    ];
+
+    const gallery=document.getElementById('gallery');
+    images.forEach(src=>{
+      const d=document.createElement('div');d.className='thumb';
+      d.innerHTML=`<img loading="lazy" src="${src}&auto=format&fit=crop&crop=faces&w=800" alt="Image">`;
+      d.onclick=()=>openLightbox(src);
+      gallery.appendChild(d);
+    });
+
+    const lb=document.getElementById('lightbox');
+    const lbImg=document.getElementById('lbImg');
+    const lbClose=document.getElementById('lbClose');
+    function openLightbox(src){lbImg.src=src+'&auto=format&fit=contain';lb.classList.add('open');lb.setAttribute('aria-hidden','false')}
+    function closeLightbox(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');setTimeout(()=>lbImg.src='',200)}
+    lbClose.addEventListener('click',closeLightbox);
+    lb.addEventListener('click',e=>{if(e.target===lb) closeLightbox()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+  </script>
+</body>
+</html>
